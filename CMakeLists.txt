@@ -3,4 +3,4 @@ project(LSM)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(LSM main.cpp arr_util.cpp arr_util.h)
+add_executable(LSM main.cpp arr_util.cpp arr_util.h lsm.cpp lsm.h)
