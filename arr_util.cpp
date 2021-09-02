@@ -1,11 +1,11 @@
 //
 // Created by YanRu Jhou on 2021/9/2.
 //
-
+#include <vector>
 #include "arr_util.h"
 
 // Find key `k` in sorted array segment `a[0..len]` (EXLUDING a[len]) using binary search
-std::tuple<bool,int>arrFind(int a[],int len, int k){
+std::tuple<bool,int>arrFind(std::vector<int> a,int len, int k){
     int lo = 0;
     int hi = len;
 

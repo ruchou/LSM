@@ -1,13 +1,18 @@
 //
 // Created by YanRu Jhou on 2021/9/2.
 //
-
+#include <tuple>
+#include <map>
+#include <set>
+#include <optional>
+#include <vector>
+#include <iterator>
 #include "lsm.h"
 
 std::tuple<Node *, std::map<Node *, std::set<int>>, std::map<int, int>> init() {
     Node *r = new Node();
-    r->tableK = new int[2 * B];
-    r->tableT = new int[2 * B];
+    r->tableK.reserve(2*B);
+    r->tableT.reserve(2*B);
     r->tableLen = 0;
     r->next = nullptr;
     r->nodeType = memtableNode;
@@ -47,4 +52,11 @@ std::optional<int> inContents(Node *n, int k) {
             return {};
         }
     }
+}
+
+bool atCapacity(Node* n){
+    if(n->tableLen < n->tableK.size())
+        return false;
+    else
+        return true;
 }
