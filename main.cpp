@@ -15,4 +15,7 @@ int main() {
     std::optional<int> v = inContents(r,10);
     std::cout <<v.value_or(0)<< std::endl;
 
+    bool isFull = atCapacity(r);
+    std::cout << isFull <<std::endl;
+
 }

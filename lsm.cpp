@@ -5,8 +5,6 @@
 #include <map>
 #include <set>
 #include <optional>
-#include <vector>
-#include <iterator>
 #include "lsm.h"
 
 std::tuple<Node *, std::map<Node *, std::set<int>>, std::map<int, int>> init() {
@@ -55,8 +53,10 @@ std::optional<int> inContents(Node *n, int k) {
 }
 
 bool atCapacity(Node* n){
-    if(n->tableLen < n->tableK.size())
+    if(n->tableLen < n->tableK.capacity())
         return false;
     else
         return true;
 }
+
+//TODO findNExt chooseNext insertNode
