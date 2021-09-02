@@ -4,6 +4,7 @@
 #include <optional>
 #include <iostream>
 
+#include "arr_util.h"
 
 
 
@@ -75,15 +76,24 @@ std::optional<int> inContents(Node* n, int k){
             return {};
         }
     }else{
-
+        bool b;
+        int i;
+        std::tie(b,i) = arrFind(n->tableK,n->tableLen,k);
+        if(b){
+            return n->tableT[i];
+        }else{
+            return {};
+        }
     }
 }
 
 int main() {
-    Node *node;
+    Node *r;
     std::map<Node*,std::set<int>> esr;
     std::map<int,int> Cr ;
 
-    std::tie(node,esr,Cr) = init();
+    std::tie(r,esr,Cr) = init();
+    std::optional<int> v = inContents(r,10);
+    std::cout <<v.value_or(0)<< std::endl;
 
 }

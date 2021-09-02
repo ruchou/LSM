@@ -8,4 +8,5 @@
 #include <tuple>
 
 std::tuple<bool,int>arrFind(int a[],int len, int k);
+bool compare(int a, int b);
 #endif //LSM_ARR_UTIL_H
