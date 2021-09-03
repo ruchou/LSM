@@ -97,14 +97,22 @@ void insertNode(Node*n, Node*m){
 
 //TODO c++ lock?
 void lockNode(Node* n){
-    if(!n->lock){
+    if (!n->lock) {
         n->lock = true;
-    }else{
+    } else {
         lockNode(n);
     }
 }
 
-void unlockNode(Node* n){
+void unlockNode(Node *n) {
     n->lock = false;
+}
+
+void mergeContent(Node *n, Node *m) {
+
+}
+
+Node *allocateNode() {
+    return new Node();
 }
 
