@@ -29,5 +29,18 @@ int main() {
     t = search(r, 10);
     std::cout << t << std::endl;
 
+    upsert(r, 5);
+    t = search(r, 5);
+    std::cout << t << std::endl;
 
+    upsert(r, 5);
+    t = search(r, 5);
+    std::cout << t << std::endl;
+
+    upsert(r, 5);
+    t = search(r, 10);
+    std::cout << t << std::endl;
+
+    t = search(r, 15);
+    std::cout << t << std::endl;
 }
