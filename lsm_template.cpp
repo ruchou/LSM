@@ -9,21 +9,22 @@
 int readClock(){
     int clock;
     std::ifstream dataFile;  // Declare input file stream.
-    dataFile.open("clock.txt"); // Open the file.
+    dataFile.open("./clock.txt"); // Open the file.
     dataFile >> clock;  // Store first value of the data.txt into var2.
     dataFile.close();  // Close file stream.
+    return clock;
 }
 
-int incrementClock(){
+void incrementClock() {
     int clock;
     std::ifstream ifstream;
-    ifstream.open("clock.txt");
+    ifstream.open("./clock.txt");
     ifstream >> clock;
     ifstream.close();
 
     std::ofstream ofstream;
-    ofstream.open("clock.txt");
-    ofstream << clock+1;
+    ofstream.open("./clock.txt");
+    ofstream << clock + 1;
     ofstream.close();
 }
 int search(Node*r , int k){

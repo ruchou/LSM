@@ -8,7 +8,7 @@
 
 int readClock();
 
-int incrementClock();
+void incrementClock();
 
 int traverse(Node* n, int k);
 

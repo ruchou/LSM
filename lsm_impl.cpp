@@ -56,7 +56,6 @@ bool atCapacity(Node* n){
         return true;
 }
 
-//TODO findNExt chooseNext insertNode
 
 bool addContents(Node *n,int k, int t){
     if(n->tableLen < n->tableK.capacity()){
