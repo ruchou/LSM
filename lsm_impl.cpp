@@ -95,3 +95,17 @@ void insertNode(Node*n, Node*m){
     m->nodeType = sstableNode;
 }
 
+
+//TODO c++ lock?
+void lockNode(Node* n){
+    if(!n->lock){
+        n->lock = true;
+    }else{
+        lockNode(n);
+    }
+}
+
+void unlockNode(Node* n){
+    n->lock = false;
+}
+

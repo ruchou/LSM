@@ -33,5 +33,10 @@ std::optional<Node*>chooseNext(Node* n);
 
 void insertNode(Node*n, Node*m);
 
+void lockNode(Node* n);
+
+void unlockNode(Node* n);
+
+
 
 #endif //LSM_LSM_IMPL_H

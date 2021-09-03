@@ -6,8 +6,16 @@
 #define LSM_LSM_TEMPLATE_H
 #include "lsm_impl.h"
 
+int readClock();
+
+int incrementClock();
+
 int traverse(Node* n, int k);
 
 int search(Node*r , int k);
+
+void upsert(Node*r, int k);
+
+
 
 #endif //LSM_LSM_TEMPLATE_H

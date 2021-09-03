@@ -32,6 +32,7 @@ class Node {
         std::vector<int> tableT;
         int tableLen;
         Node *next;
+        bool lock;
 };
 
 
