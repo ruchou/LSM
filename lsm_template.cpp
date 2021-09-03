@@ -51,12 +51,38 @@ int traverse(Node* n, int k){
 
 void upsert(Node*r, int k){
     int t = readClock();
-    bool res = addContents(r,k,t);
-    if(res){
+    bool res = addContents(r, k, t);
+    if (res) {
         incrementClock();
         unlockNode(r);
-    }else{
+    } else {
         unlockNode(r);
-        upsert(r,k);
+        upsert(r, k);
     }
+}
+
+void compact(Node *n) {
+    lockNode(n);
+    bool full = atCapacity(n);
+    if (full) {
+        std::optional<Node *> someM = chooseNext(n);
+        if (someM.has_value()) {
+            Node *m = someM.value();
+            lockNode(m);
+            mergeContent(n, m);
+            unlockNode(n);
+            unlockNode(m);
+            compact(m);
+        } else {
+            Node *m = allocateNode();
+            insertNode(n, m);
+            mergeContent(n, m);
+            unlockNode(n);
+            unlockNode(m);
+            compact(m);
+        }
+    } else {
+        unlockNode(n);
+    }
+
 }

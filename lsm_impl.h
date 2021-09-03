@@ -27,16 +27,19 @@ bool addContents(Node *n,int k, int t);
 
 std::optional<Node*>findNext(Node* n);
 
-bool atCapacity(Node* n);
+bool atCapacity(Node *n);
 
-std::optional<Node*>chooseNext(Node* n);
+std::optional<Node *> chooseNext(Node *n);
 
-void insertNode(Node*n, Node*m);
+void insertNode(Node *n, Node *m);
 
-void lockNode(Node* n);
+void lockNode(Node *n);
 
-void unlockNode(Node* n);
+void unlockNode(Node *n);
 
+void mergeContent(Node *n, Node *m);
+
+Node *allocateNode();
 
 
 #endif //LSM_LSM_IMPL_H
