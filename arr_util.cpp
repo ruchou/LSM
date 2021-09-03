@@ -6,30 +6,41 @@
 
 // Find key `k` in sorted array segment `a[0..len]` (EXLUDING a[len]) using binary search
 std::tuple<bool,int>arrFind(std::vector<int> a,int len, int k){
-    int lo = 0;
-    int hi = len;
-
-    while(hi != lo){
-        int mid = (hi+lo)/2;
-        int cmp = compare(k, a[mid]);
-        if(cmp<0){
-            hi = mid; //look in the first half
-        } else if( cmp>0){
-            lo = mid+1; // look in the second half
-        }else{
-            //found it
-            hi = mid;
-            lo = mid;
+//    int lo = 0;
+//    int hi = len;
+//
+//    while(hi != lo){
+//        int mid = (hi+lo)/2;
+//        int cmp = compare(k, a[mid]);
+//        if(cmp<0){
+//            hi = mid; //look in the first half
+//        } else if( cmp>0){
+//            lo = mid+1; // look in the second half
+//        }else{
+//            //found it
+//            hi = mid;
+//            lo = mid;
+//        }
+//    }
+//
+//    int idx = lo;
+//    bool found;
+//    if(idx == len || k < a[lo]){
+//        found = false;
+//    }else{
+//        found = true;
+//    }
+    bool found = false;
+    int idx = 0;
+    while(!found && idx < len ){
+        int cmp  = compare(a[idx],k);
+        if(cmp==0){
+            found = true;
+            break;
         }
+        idx += 1;
     }
 
-    int idx = lo;
-    bool found;
-    if(idx == len || k << a[lo]){
-        found = false;
-    }else{
-        found = true;
-    }
     return std::make_tuple(found,idx);
     //TODO
     //map_find_in_set

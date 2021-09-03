@@ -1,11 +1,8 @@
 //
 // Created by YanRu Jhou on 2021/9/2.
 //
-#include <tuple>
-#include <map>
-#include <set>
-#include <optional>
-#include "lsm.h"
+
+#include "lsm_impl.h"
 
 std::tuple<Node *, std::map<Node *, std::set<int>>, std::map<int, int>> init() {
     Node *r = new Node();
@@ -60,3 +57,41 @@ bool atCapacity(Node* n){
 }
 
 //TODO findNExt chooseNext insertNode
+
+bool addContents(Node *n,int k, int t){
+    if(n->tableLen < n->tableK.capacity()){
+        n->tableK[n->tableLen] = k ;
+        n->tableT[n->tableLen] = t;
+        n->tableLen += 1;
+
+        return true;
+    }else{
+        return false;
+    }
+}
+
+std::optional<Node*>findNext(Node* n){
+    if(n->next == nullptr){
+        return {};
+    }else{
+        return n->next;
+    }
+}
+
+std::optional<Node*>chooseNext(Node* n){
+    if(n->next!= nullptr){
+        return n->next;
+    }else{
+        return {};
+    }
+}
+
+void insertNode(Node*n, Node*m){
+    m = new Node();
+
+    n->next = m;
+    m->tableLen = 0;
+    m->next = nullptr;
+    m->nodeType = sstableNode;
+}
+
