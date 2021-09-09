@@ -31,6 +31,7 @@ void set_of_empty_map() {
 
 }
 
+template<class T>
 void set_of_map_append(std::map<T, std::optional<T>> Cn,
                        std::map<T, std::optional<T>> Cm
 ) {
@@ -55,6 +56,7 @@ void node_sep_star(Node *r,
 
 }
 
+template<class T>
 void node_es_disjoint(Node *r,
                       Node *n,
                       std::map<Node *, std::set<T>> esn,
