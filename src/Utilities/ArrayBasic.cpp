@@ -4,8 +4,8 @@
 
 #include "../../include/Utilities/ArrayBasic.h"
 
-void arr_copy(std::vector<int> *a,
-              std::vector<int> *b,
+void arr_copy(std::vector<std::tuple<int, int>> *a,
+              std::vector<std::tuple<int, int>> *b,
               int src,
               int dst,
               int len
@@ -27,7 +27,7 @@ void arr_copy(std::vector<int> *a,
 //        invariant b.map == map_copy(mb, ma, src, dst, i)
     while (i < len) {
 //        ghost var m1 := b.map;
-        int tmp = a->at(src + i);
+        auto tmp = a->at(src + i);
         b->at(dst + i) = tmp;
 //        pure assert b.map == m1[dst + i := tmp];
         i += 1;
