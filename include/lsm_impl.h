@@ -12,11 +12,11 @@
 #include <optional>
 #include <iostream>
 
-#include "arr_util.h"
+#include "Utilities/arr_util.h"
 #include "Node.h"
 
 
-const int B = 10;
+int B = 10;
 
 std::tuple<Node*, std::map<Node *, std::set<int>>, std::map<int, int>> init();
 

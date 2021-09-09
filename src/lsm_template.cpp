@@ -2,11 +2,11 @@
 // Created by YanRu Jhou on 2021/9/3.
 //
 
-#include "lsm_template.h"
-#include "lsm_impl.h"
+#include "../include/lsm_template.h"
+#include "../include/lsm_impl.h"
 #include <fstream>
 
-int readClock(){
+int readClock() {
     int clock;
     std::ifstream dataFile;  // Declare input file stream.
     dataFile.open("./clock.txt"); // Open the file.
