@@ -25,25 +25,31 @@ enum NodeType {
 
 // TODO
 // ghost var indices: Map<K, Int>;  // inverse of tableK for sstableNodes
+template<class K>
 class Node {
 public:
     NodeType nodeType;
-    std::vector<std::tuple<int, int>> *table;
+    std::vector<std::tuple<K, K>> *table;
     int tableLen;
-    Node *next;
+    Node<K> *next;
     FileT *file;
 };
 
 /** {Spec} Definition of heap representation predicate, node */
+template<class T>
+void nodeSpatial(Node<T> *x);
 
-void nodeSpatial(Node *x);
+template<class T>
+void nodeSpatialFull(Node<T> *x);
 
-void nodeSpatialFull(Node *x);
+template<class T>
+void nodePure(Node<T> *r, Node<T> *n, std::map<Node<T> *, std::set<T> > esn, std::map<T, T> Vn);
 
-void nodePure(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<int, int> Vn);
+template<class T>
+void node(Node<T> *r, Node<T> *n, std::map<Node<T> *, std::set<T> > esn, std::map<T, T> Vn);
 
-void node(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<int, int> Vn);
+template<class T>
+void needsNewNode(Node<T> *r, Node<T> *n, std::map<Node<T> *, std::set<T> > esn, std::map<T, T> Vn);
 
-void needsNewNode(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<int, int> Vn);
 
 #endif //LSM_NODE_H

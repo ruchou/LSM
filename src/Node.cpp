@@ -4,11 +4,13 @@
 
 #include "../include/Node.h"
 
-void nodeSpatial(Node *x) {
+template<class T>
+void nodeSpatial(Node<T> *x) {
     assert(x != nullptr);
 }
 
-void nodeSpatialFull(Node *x) {
+template<class T>
+void nodeSpatialFull(Node<T> *x) {
     nodeSpatial(x);
 
     if (x->nodeType == memtableNode && x->table != nullptr)
@@ -20,7 +22,8 @@ void nodeSpatialFull(Node *x) {
 
 }
 
-void nodePure(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<int, int> Vn) {
+template<class T>
+void nodePure(Node<T> *r, Node<T> *n, std::map<Node<T> *, std::set<T>> esn, std::map<T, T> Vn) {
     //TODO
     //true
 //    // Node is either memtable or sstable:
@@ -47,11 +50,13 @@ void nodePure(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<in
 
 }
 
-void node(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<int, int> Vn) {
+template<class T>
+void node(Node<T> *r, Node<T> *n, std::map<Node<T> *, std::set<T>> esn, std::map<T, T> Vn) {
     nodeSpatial(n);
     nodePure(r, n, esn, Vn);
 }
 
-void needsNewNode(Node *r, Node *n, std::map<Node *, std::set<int>> esn, std::map<int, int> Vn) {
+template<class T>
+void needsNewNode(Node<T> *r, Node<T> *n, std::map<Node<T> *, std::set<T>> esn, std::map<T, T> Vn) {
     assert(n->next == nullptr);
 }

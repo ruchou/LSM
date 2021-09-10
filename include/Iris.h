@@ -11,32 +11,35 @@
 #include <tuple>
 #include <map>
 
-using namespace std;
 
 /** {Spec} Functions used in specs connecting to Iris template proof. */
 template<class T>
-set<T> dom(map<T, optional<T>> V);
+std::set<T> dom(std::map<T, std::optional<T>> V);
 
 template<class T>
-set<tuple<T, T>> set_of_map(map<T, optional<T>> V);
+std::set<std::tuple<T, T>> set_of_map(std::map<T, std::optional<T>> V);
 
 template<class T>
-map<T, optional<T>> merge(map<T, optional<T>> Cn,
-                          set<T> Es,
-                          map<T, optional<T>> Cm
-);
+std::map<T, std::optional<T>> merge(std::map<T, std::optional<T>> Cn,
+                                    std::set<T> Es,
+                                    std::map<T, std::optional<T>> Cm
+) {
+
+}
 
 template<class T>
-map<T, optional<T>> mergeLeft(map<T, optional<T>> Cn,
-                              set<T> Es,
-                              map<T, optional<T>> Cm
-);
+std::map<T, std::optional<T>> mergeLeft(std::map<T, std::optional<T>> Cn,
+                                        std::set<T> Es,
+                                        std::map<T, std::optional<T>> Cm
+) {}
 
 template<class T>
-map<T, optional<T>> mergeRight(map<T, optional<T>> Cn,
-                               set<T> Es,
-                               map<T, optional<T>> Cm
-);
+std::map<T, std::optional<T>> mergeRight(std::map<T, std::optional<T>> Cn,
+                                         std::set<T> Es,
+                                         std::map<T, std::optional<T>> Cm
+) {
+
+}
 
 
 #endif //LSM_IRIS_H

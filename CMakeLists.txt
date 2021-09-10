@@ -10,4 +10,4 @@ add_executable(LSM main.cpp
         src/Node.cpp include/Node.h
         src/FileSystem.cpp include/FileSystem.h
         src/Iris.cpp include/Iris.h
-        src/Lemmas.cpp include/Lemmas.h)
+        src/Lemmas.cpp include/Lemmas.h src/Utilities/arrayMap.cpp include/Utilities/arrayMap.h)
