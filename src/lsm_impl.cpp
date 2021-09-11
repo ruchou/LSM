@@ -87,3 +87,44 @@ bool addContent(Node<int> *r, Node<int> *n, int k, int t) {
 
 }
 
+std::optional<Node<int> *> findNext(Node<int> *n, int k) {
+//    requires node(r, n, esn, Vn)
+
+    if (n->next == nullptr) {
+//        ensures res != noneNode ==> k in esn[res.nd]
+        return {};
+    } else {
+//        ensures res == noneNode ==> (forall n1: Node :: k !in esn[n1])
+        return n->next;
+    }
+
+}
+
+bool atCapacity(Node<int> *n) {
+//    requires node(r, n, esn, Vn)
+
+    if (n->nodeType == memtableNode) {
+        if (n->tableLen < n->table->capacity()) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
+}
+
+std::optional<Node<int> *> chooseNext(Node<int> *n) {
+//    requires node(r, n, esn, Vn)
+    if (n->next != nullptr) {
+//        ensures node(r, n, esn, Vn)
+//        ensures res != noneNode ==> esn[res.nd] != {}
+        return n->next;
+    } else {
+//        ensures node(r, n, esn, Vn)
+//        ensures res == noneNode ==> needsNewNode(r, n, esn, Vn)
+        return {};
+    };
+}
+
+
