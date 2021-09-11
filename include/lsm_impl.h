@@ -30,5 +30,10 @@ bool atCapacity(Node<int> *n);
 
 std::optional<Node<int> *> chooseNext(Node<int> *n);
 
+void insertNode(Node<int> *r, Node<int> *n, Node<int> *m);
+
+Node<int> *allocNode();
+
+void mergeContents(Node<int> *r, Node<int> *n, Node<int> *m);
 
 #endif //LSM_LSM_IMPL_H

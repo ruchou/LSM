@@ -128,3 +128,140 @@ std::optional<Node<int> *> chooseNext(Node<int> *n) {
 }
 
 
+void insertNode(Node<int> *r, Node<int> *n, Node<int> *m) {
+//    requires node(r, n, esn, Vn) &*& nodeSpatial(m)
+//    requires needsNewNode(r, n, esn, Vn) &*& m != r
+    assert(m != r);
+
+    assert(n != m);
+    n->next = m;
+    std::map<Node<int> *, int> esn1;
+
+    m->tableLen = 0;
+    m->next = nullptr;
+    m->nodeType = sstableNode;
+    m->file = createFile(2 * B);
+
+    std::map<Node<int> *, int> esm;
+    std::map<Node<int> *, int> Vm;
+
+//    ensures node(r, n, esn1, Vn) &*& node(r, m, esm, Vm)
+//    ensures esn1[m] != {} && esn1 == esn[m := esn1[m]]
+//    ensures esm == { x: Node :: {} } && Vm == empty_map
+
+//    return esn1, esm, Vm;
+
+}
+
+Node<int> *allocNode() {
+    assert(true);
+
+    auto *m = new Node<int>();
+
+    nodeSpatial(m);
+    return m;
+}
+
+
+//ghost esn: Map<Node, Set<K>>,
+//ghost Vn: Map<K, OptionV>,
+//ghost esm: Map<Node, Set<K>>,
+//ghost Vm: Map<K, OptionV>)
+template<class T>
+void mergeContentsHelper(Node<T> *r, Node<T> *n, Node<T> *m) {
+//    requires node(r, n, esn, Vn) &*& node(r, m, esm, Vm)
+//    requires esn[m] != {}
+    assert(m != n);
+
+    if (n->nodeType == memtableNode) {
+        // n is root node: flush
+        FileT *f = n->file;
+
+        if (!isOpenFile(f))
+            openFile(f);
+
+        FileT *f_new = createFile(n->table->size() + f->size + 1);
+        openFile(f_new);
+
+        arr_copy(f->ram, f_new->ram, 0, 0, f->ram->size());
+
+//        contents_extensional(f.ram.map, f_new.ram.map, 0, m.tableLen);
+
+        //Weird
+        int rlen = flush(n->table,
+                         0,
+                         n->tableLen,
+                         f_new->ram, m->tableLen);
+        writeFile(f_new);
+
+//        contents_extensional(f_new.ram.map, f_new.disk_cont.map, 0, rlen);
+        deleteFile(f);
+        m->file = f_new;
+        m->tableLen = rlen;
+
+        n->tableLen = 0;
+
+    } else {
+        // n and m are disk nodes: compact
+        auto fn = n->file;
+        auto fm = m->file;
+
+        if (!isOpenFile(fn))
+            openFile(fn);
+
+        if (!isOpenFile(fm))
+            openFile(fm);
+
+        auto fm_new = createFile(n->tableLen + m->tableLen + 1);
+        openFile(fm_new);
+
+        int rlen = array_merge(fn->ram, n->tableLen, fm->ram, m->tableLen, fm_new->ram);
+        writeFile(fm_new);
+
+        deleteFile(fm);
+        m->file = fm_new;
+        m->tableLen = rlen;
+
+        auto fn_new = createFile(n->file->size);
+        openFile(fn_new);
+        writeFile(fn_new);
+
+        deleteFile(fn);
+        n->file = fn_new;
+        n->tableLen = 0;
+        return;
+    }
+
+//    ensures node(r, n, esn, empty_map) &*& node(r, m, esm, append(Vn, Vm))
+
+}
+
+/*
+ *ghost esn: Map<Node, Set<K>>,
+    ghost Vn: Map<K, OptionV>,
+    ghost esm: Map<Node, Set<K>>,
+    ghost Vm: Map<K, OptionV>)
+ */
+
+void mergeContents(Node<int> *r, Node<int> *n, Node<int> *m) {
+//    requires node(r, n, esn, Vn) &*& node(r, m, esm, Vm)
+//    requires esn[m] != {}
+
+    mergeContentsHelper(r, n, m);
+
+//    // Some ghost code to relate to spec assumed in Iris proof
+//    ghost var K11 := dom(Vn);
+//    ghost var Vm11 := append(Vn, Vm);
+//    ghost var Vn11 := empty_map;
+//
+//    mergeLeft_append(Vn, esn[m], Vm);
+//    mergeRight_append(Vn, esn[m], Vm);
+
+
+//    ensures node(r, n, esn, Vn1) &*& node(r, m, esm, Vm1)
+//    ensures Vn1 == mergeLeft(K1, Vn, esn[m], Vm)
+//    ensures Vm1 == mergeRight(K1, Vn, esn[m], Vm)
+//    returns (implicit ghost K1: Set<K>, implicit ghost Vn1: Map<K, OptionV>, implicit ghost Vm1: Map<K, OptionV>)
+
+
+}

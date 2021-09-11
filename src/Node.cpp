@@ -9,6 +9,8 @@ void nodeSpatial(Node<T> *x) {
     assert(x != nullptr);
 }
 
+template void nodeSpatial(Node<int> *x);
+
 template<class T>
 void nodeSpatialFull(Node<T> *x) {
     nodeSpatial(x);
