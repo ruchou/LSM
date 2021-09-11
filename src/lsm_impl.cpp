@@ -19,7 +19,7 @@ std::tuple<Node<int> *, std::map<Node<int> *, std::set<int>>, std::map<int, std:
     return std::make_tuple(r, esn, Vr);
 }
 
-std::optional<int> inContents(Node<int> *r, Node<int> *n, int k) {
+std::optional<int> inContents(Node<int> *n, int k) {
 //    requires node(r, n, esn, Vn)
 //    ensures node(r, n, esn, Vn)
     if (n->nodeType == memtableNode) {
@@ -263,5 +263,19 @@ void mergeContents(Node<int> *r, Node<int> *n, Node<int> *m) {
 //    ensures Vm1 == mergeRight(K1, Vn, esn[m], Vm)
 //    returns (implicit ghost K1: Set<K>, implicit ghost Vn1: Map<K, OptionV>, implicit ghost Vm1: Map<K, OptionV>)
 
+}
 
+void lockNode(Node<int> *n) {
+    bool b;
+    bool t = false;
+    b = n->lockBit.compare_exchange_strong(t, true);
+    if (b) {
+
+    } else {
+        lockNode(n);
+    }
+}
+
+void unlockNode(Node<int> *n) {
+    n->lockBit = false;
 }

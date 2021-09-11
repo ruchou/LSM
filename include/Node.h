@@ -11,6 +11,7 @@
 #include <set>
 #include <map>
 #include <iostream>
+#include <atomic>
 
 /*LSM-Like Implementation of multicopy template*/
 enum OptionNode {
@@ -33,7 +34,9 @@ public:
     int tableLen;
     Node<K> *next;
     FileT *file;
+    std::atomic<bool> lockBit = false;
 };
+
 
 /** {Spec} Definition of heap representation predicate, node */
 template<class T>
