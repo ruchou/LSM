@@ -8,6 +8,9 @@
 #include "include/lsm_impl.h"
 #include "include/lsm_template.h"
 
+using std::cout;
+using std::end;
+
 int main() {
     Node<int> *r;
     std::map<Node<int> *, std::set<int>> esr;
