@@ -60,8 +60,29 @@ std::optional<int> inContents(Node<int> *r, Node<int> *n, int k) {
             openFile(f);
         }
         std::optional<int> value;
-        array_find(*(f->ram), n->tableLen, k);
+        int idx;
+        std::tie(value, idx) = array_find(*(f->ram), n->tableLen, k);
         return value;
+    }
+
+}
+
+bool addContent(Node<int> *r, Node<int> *n, int k, int t) {
+//    requires node(r, n, esn, Vn) &*& n == r
+    assert(n == r);
+
+    assert(n->nodeType == memtableNode);
+    int start = n->table->size() - n->tableLen;
+//    pure assert Vn == contents(n.table.map, start, n.table.length);
+
+    if (n->tableLen < n->table->capacity()) {
+        n->table->at(start - 1) = std::make_tuple(k, t);
+
+//        contents_extensional(n.table.map, old(n.table.map), start, n.table.length);
+        n->tableLen += 1;
+        return true;
+    } else {
+        return false;
     }
 
 }
