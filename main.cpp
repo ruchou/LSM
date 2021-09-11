@@ -6,7 +6,7 @@
 #include <cassert>
 
 #include "include/lsm_impl.h"
-
+#include "include/lsm_template.h"
 
 int main() {
     Node<int> *r;
@@ -14,4 +14,6 @@ int main() {
     std::map<int, std::optional<int>> Vr;
 
     std::tie(r, esr, Vr) = init();
+
+    search(r, 10);
 }

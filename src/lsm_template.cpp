@@ -30,22 +30,41 @@ void incrementClock() {
 }
 
 int traverse(Node<int> *n, int k) {
-    g_mutex.lock();
-
+    lockNode(n);
     std::optional<int> t1 = inContents(n, k);
 
     if (t1.has_value()) {
-        g_mutex.unlock();
+        unlockNode(n);
         return t1.value();
     } else {
         std::optional<Node<int> *> m1 = findNext(n, k);
         if (m1.has_value()) {
-            g_mutex.unlock();
+            unlockNode(n);
             traverse(m1.value(), k);
         } else {
-            g_mutex.unlock();
+            unlockNode(n);
             return -1;
         }
+    }
+
+}
+
+int search(Node<int> *r, int k) {
+    return traverse(r, k);
+}
+
+void upsert(Node<int> *r, int k) {
+    lockNode(r);
+
+    int t = readClock();
+    bool res = addContent(r, k, t);
+
+    if (res) {
+        incrementClock();
+        unlockNode(r);
+    } else {
+        unlockNode(r);
+        upsert(r, k);
     }
 
 }

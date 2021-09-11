@@ -67,9 +67,9 @@ std::optional<int> inContents(Node<int> *n, int k) {
 
 }
 
-bool addContent(Node<int> *r, Node<int> *n, int k, int t) {
+bool addContent(Node<int> *n, int k, int t) {
 //    requires node(r, n, esn, Vn) &*& n == r
-    assert(n == r);
+//    assert(n == r);
 
     assert(n->nodeType == memtableNode);
     int start = n->table->size() - n->tableLen;

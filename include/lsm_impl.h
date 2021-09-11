@@ -22,7 +22,7 @@ std::tuple<Node<int> *, std::map<Node<int> *, std::set<int>>, std::map<int, std:
 std::optional<int> inContents(Node<int> *n, int k);
 
 //  returns (b: Bool, implicit ghost Vn1: Map<K, OptionV>)
-bool addContent(Node<int> *r, Node<int> *n, int k, int t);
+bool addContent(Node<int> *n, int k, int t);
 
 std::optional<Node<int> *> findNext(Node<int> *n, int k);
 

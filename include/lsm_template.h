@@ -16,11 +16,8 @@ void incrementClock();
 
 int traverse(Node<int> *n, int k);
 
-int search(Node<int> *n, int k);
+int search(Node<int> *r, int k);
 
 void upsert(Node<int> *r, int k);
-
-void compact(Node<int> *n);
-
 
 #endif //LSM_LSM_TEMPLATE_H
