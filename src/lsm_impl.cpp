@@ -168,7 +168,7 @@ Node<int> *allocNode() {
 //ghost esm: Map<Node, Set<K>>,
 //ghost Vm: Map<K, OptionV>)
 template<class T>
-void mergeContentsHelper(Node<T> *r, Node<T> *n, Node<T> *m) {
+void mergeContentsHelper(Node<T> *n, Node<T> *m) {
 //    requires node(r, n, esn, Vn) &*& node(r, m, esm, Vm)
 //    requires esn[m] != {}
     assert(m != n);
@@ -243,7 +243,7 @@ void mergeContentsHelper(Node<T> *r, Node<T> *n, Node<T> *m) {
     ghost Vm: Map<K, OptionV>)
  */
 
-void mergeContents(Node<int> *r, Node<int> *n, Node<int> *m) {
+void mergeContents(Node<int> *n, Node<int> *m) {
 //    requires node(r, n, esn, Vn) &*& node(r, m, esm, Vm)
 //    requires esn[m] != {}
 

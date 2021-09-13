@@ -5,11 +5,11 @@
 #include <iostream>
 #include <cassert>
 
-#include "include/lsm_impl.h"
 #include "include/lsm_template.h"
 
 using std::cout;
 using std::end;
+using std::endl;
 
 int main() {
     Node<int> *r;
@@ -18,5 +18,8 @@ int main() {
 
     std::tie(r, esr, Vr) = init();
 
-    search(r, 10);
+    int k = search(r, 10);
+    cout << k;
+
+
 }

@@ -34,7 +34,7 @@ void insertNode(Node<int> *r, Node<int> *n, Node<int> *m);
 
 Node<int> *allocNode();
 
-void mergeContents(Node<int> *r, Node<int> *n, Node<int> *m);
+void mergeContents(Node<int> *n, Node<int> *m);
 
 void lockNode(Node<int> *n);
 
