@@ -11,4 +11,4 @@ add_executable(LSM main.cpp
         src/Iris.cpp include/Iris.h
         src/Lemmas.cpp include/Lemmas.h
         src/Utilities/arrayMap.cpp include/Utilities/arrayMap.h
-        src/lsm_template.cpp include/lsm_template.h)
+        src/lsm_template.cpp include/lsm_template.h test/TestCase.cpp test/TestCase.h)

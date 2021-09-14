@@ -9,9 +9,7 @@
 #include <optional>
 #include <vector>
 #include <cassert>
-
-// Find key `k` in sorted array segment `a[0..len]` (EXLUDING a[len]) using binary search
-std::tuple<std::optional<int>, int> array_find(std::vector<std::tuple<int, int>> a, int len, int k);
+#include "ArrayBasic.h"
 
 // Merge unsorted array a[start..end] into sorted array b
 int flush(std::vector<std::tuple<int, int>> *a,
@@ -29,5 +27,9 @@ int array_merge(std::vector<std::tuple<int, int>> *a,
                 int blen,
                 std::vector<std::tuple<int, int>> *c
 );
+
+std::tuple<int, int> arr_insert(std::vector<std::tuple<int, int>> *a, std::tuple<int, int> p, int len);
+
+std::tuple<std::optional<int>, int> arr_find(std::vector<std::tuple<int, int>> *a, int len, int k);
 
 #endif //LSM_ARRAYMAP_H

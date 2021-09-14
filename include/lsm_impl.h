@@ -15,7 +15,7 @@
 #include "../include/Utilities/arrayMap.h"
 #include "Node.h"
 
-const int B = 20;
+const int B = 5;
 
 std::tuple<Node<int> *, std::map<Node<int> *, std::set<int>>, std::map<int, std::optional<int>>> init();
 

@@ -14,7 +14,7 @@
 class FileT {
 public:
     std::vector<std::tuple<int, int>> *ram;
-    std::vector<std::tuple<int, int>> *disk_count;
+    std::vector<std::tuple<int, int>> *disk_cont;
     bool is_new; //indicates whether file has not yet been written
     bool is_open; // indicates whether RAM disk has been populated
     int size; //the size of the file

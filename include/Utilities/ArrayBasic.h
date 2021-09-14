@@ -8,6 +8,7 @@
 #include <vector>
 #include <tuple>
 #include <cassert>
+#include <cassert>
 
 // Copy a[src..src+len] to b[dst..dst+len]
 void arr_copy(std::vector<std::tuple<int, int>> *a,
@@ -17,5 +18,6 @@ void arr_copy(std::vector<std::tuple<int, int>> *a,
               int len
 );
 
+void arr_shift(std::vector<std::tuple<int, int>> *a, int src, int dst, int len);
 
 #endif //LSM_ARRAYBASIC_H

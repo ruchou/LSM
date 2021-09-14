@@ -5,21 +5,16 @@
 #include <iostream>
 #include <cassert>
 
-#include "include/lsm_template.h"
-
+#include "test/TestCase.h"
 using std::cout;
-using std::end;
 using std::endl;
 
 int main() {
-    Node<int> *r;
-    std::map<Node<int> *, std::set<int>> esr;
-    std::map<int, std::optional<int>> Vr;
+    TestCase T1;
+    cout << "-------------------------" << endl;
+    T1.test1();
+    cout << "-------------------------" << endl;
+    T1.testMerge();
 
-    std::tie(r, esr, Vr) = init();
-
-    int k = search(r, 10);
-    cout << k;
-
-
+    return 1;
 }

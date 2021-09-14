@@ -8,10 +8,11 @@
 std::tuple<Node<int> *, std::map<Node<int> *, std::set<int>>, std::map<int, std::optional<int>>> init() {
     auto *r = new Node<int>;
     r->table = new std::vector<std::tuple<int, int>>;
-    r->table->reserve(2 * B);
+    r->table->resize(2 * B);
     r->tableLen = 0;
     r->next = nullptr;
     r->nodeType = memtableNode;
+    r->file = createFile(2 * B);
 
     std::map<Node<int> *, std::set<int>> esn;
     std::map<int, std::optional<int>> Vr;
@@ -29,7 +30,7 @@ std::optional<int> inContents(Node<int> *n, int k) {
 
         int key, timestamp;
 
-        while (i < n->tableLen && !flag) {
+        while (i < n->table->size() && !flag) {
 //            invariant n.nodeType == memtableNode;
 //            invariant start == n.table.length - n.tableLen;
 //            invariant node(r, n, esn, Vn)
@@ -61,7 +62,7 @@ std::optional<int> inContents(Node<int> *n, int k) {
         }
         std::optional<int> value;
         int idx;
-        std::tie(value, idx) = array_find(*(f->ram), n->tableLen, k);
+        std::tie(value, idx) = arr_find((f->ram), n->tableLen, k);
         return value;
     }
 
@@ -75,7 +76,8 @@ bool addContent(Node<int> *n, int k, int t) {
     int start = n->table->size() - n->tableLen;
 //    pure assert Vn == contents(n.table.map, start, n.table.length);
 
-    if (n->tableLen < n->table->capacity()) {
+
+    if (n->tableLen < n->table->size()) {
         n->table->at(start - 1) = std::make_tuple(k, t);
 
 //        contents_extensional(n.table.map, old(n.table.map), start, n.table.length);
@@ -157,6 +159,9 @@ Node<int> *allocNode() {
     assert(true);
 
     auto *m = new Node<int>();
+    m->nodeType = sstableNode;
+    m->file = createFile(2 * B);
+
 
     nodeSpatial(m);
     return m;
@@ -175,7 +180,7 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
 
     if (n->nodeType == memtableNode) {
         // n is root node: flush
-        FileT *f = n->file;
+        FileT *f = m->file;
 
         if (!isOpenFile(f))
             openFile(f);
@@ -247,7 +252,7 @@ void mergeContents(Node<int> *n, Node<int> *m) {
 //    requires node(r, n, esn, Vn) &*& node(r, m, esm, Vm)
 //    requires esn[m] != {}
 
-    mergeContentsHelper(r, n, m);
+    mergeContentsHelper(n, m);
 
 //    // Some ghost code to relate to spec assumed in Iris proof
 //    ghost var K11 := dom(Vn);

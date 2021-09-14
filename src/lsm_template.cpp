@@ -84,6 +84,7 @@ void compact(Node<int> *r, Node<int> *n) {
         } else {
             Node<int> *m = allocNode();
             insertNode(r, n, m);
+            mergeContents(n, m);
             unlockNode(n);
             unlockNode(m);
             compact(r, m);
