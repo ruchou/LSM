@@ -41,7 +41,7 @@ int traverse(Node<int> *r, int k) {
         std::optional<Node<int> *> m1 = findNext(r, k);
         if (m1.has_value()) {
             unlockNode(r);
-            traverse(m1.value(), k);
+            return traverse(m1.value(), k);
         } else {
             unlockNode(r);
             return -1;

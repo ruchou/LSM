@@ -4,7 +4,7 @@
 
 #include "../../include/Utilities/arrayMap.h"
 
-
+// Merge unsorted array a[start..end] into sorted array b
 int flush(std::vector<std::tuple<int, int>> *a,
           int start,
           int end,
@@ -15,7 +15,7 @@ int flush(std::vector<std::tuple<int, int>> *a,
     assert(a != nullptr);
 //    requires sorted_array_prefix(b, blen)
     assert(0 <= start && start <= end && !a->empty());
-    assert((blen + end) < b->size());
+    assert((blen + end) <= b->size());
 
     int i = end - 1;
     int blen1 = blen;
@@ -63,6 +63,12 @@ int flush(std::vector<std::tuple<int, int>> *a,
 //    ensures contents(b.map, 0, blen1) == append(contents(old(a.map), start, end), contents(old(b.map), 0, blen))
 }
 
+bool sortbysec(const std::tuple<int, int> &a,
+               const std::tuple<int, int> &b) {
+    return (std::get<0>(a) < std::get<0>(b));
+}
+
+
 int array_merge(std::vector<std::tuple<int, int>> *a,
                 int alen,
                 std::vector<std::tuple<int, int>> *b,
@@ -73,8 +79,9 @@ int array_merge(std::vector<std::tuple<int, int>> *a,
 //    requires sorted_array_prefix(b, blen)
 //    requires acc(c)
 //    requires alen + blen <= c.length
-    assert(std::is_sorted(a->begin(), a->begin() + alen));
-    assert(std::is_sorted(b->begin(), b->begin() + blen));
+
+    assert(std::is_sorted(a->begin(), a->begin() + alen, sortbysec));
+    assert(std::is_sorted(b->begin(), b->begin() + blen, sortbysec));
     assert(c != nullptr);
     assert(alen + blen <= c->capacity());
 
@@ -298,9 +305,11 @@ std::tuple<std::optional<int>, int> arr_find(std::vector<std::tuple<int, int>> *
 
     int idx = lo;
     if (idx == len || k < std::get<0>(a->at(lo))) {
-        return std::make_tuple(std::nullopt, idx);
+        return std::make_tuple(std::nullopt, len);
     } else {
-        return std::make_tuple(std::get<1>(a->at(idx)), idx);
+        int key, value;
+        std::tie(key, value) = a->at(idx);
+        return std::make_tuple(value, idx);
     }
 
 

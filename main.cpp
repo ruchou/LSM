@@ -15,6 +15,10 @@ int main() {
     T1.test1();
     cout << "-------------------------" << endl;
     T1.testMerge();
+    cout << "-------------------------" << endl;
+    T1.testMerge2();
+    cout << "-------------------------" << endl;
+    T1.testMerge3();
 
     return 1;
 }

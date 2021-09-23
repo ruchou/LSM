@@ -9,10 +9,10 @@ std::tuple<Node<int> *, std::map<Node<int> *, std::set<int>>, std::map<int, std:
     auto *r = new Node<int>;
     r->table = new std::vector<std::tuple<int, int>>;
     r->table->resize(2 * B);
+    std::fill(r->table->begin(), r->table->end(), std::make_tuple(-1, -1));
     r->tableLen = 0;
     r->next = nullptr;
     r->nodeType = memtableNode;
-    r->file = createFile(2 * B);
 
     std::map<Node<int> *, std::set<int>> esn;
     std::map<int, std::optional<int>> Vr;
@@ -106,13 +106,18 @@ bool atCapacity(Node<int> *n) {
 //    requires node(r, n, esn, Vn)
 
     if (n->nodeType == memtableNode) {
-        if (n->tableLen < n->table->capacity()) {
+        if (n->tableLen < n->table->size()) {
             return false;
         } else {
             return true;
         }
     } else {
         return false;
+//        if(n->file->size > n->file->ram->size()/2 ){
+//            return true;
+//        }else{
+//            return false;
+//        }
     }
 }
 
@@ -142,7 +147,7 @@ void insertNode(Node<int> *r, Node<int> *n, Node<int> *m) {
     m->tableLen = 0;
     m->next = nullptr;
     m->nodeType = sstableNode;
-    m->file = createFile(2 * B);
+    m->file = createFile(0);
 
     std::map<Node<int> *, int> esm;
     std::map<Node<int> *, int> Vm;
@@ -159,9 +164,6 @@ Node<int> *allocNode() {
     assert(true);
 
     auto *m = new Node<int>();
-    m->nodeType = sstableNode;
-    m->file = createFile(2 * B);
-
 
     nodeSpatial(m);
     return m;
@@ -185,7 +187,7 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
         if (!isOpenFile(f))
             openFile(f);
 
-        FileT *f_new = createFile(n->table->size() + f->size + 1);
+        FileT *f_new = createFile(n->table->size() + f->size);
         openFile(f_new);
 
         arr_copy(f->ram, f_new->ram, 0, 0, f->ram->size());
@@ -217,7 +219,7 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
         if (!isOpenFile(fm))
             openFile(fm);
 
-        auto fm_new = createFile(n->tableLen + m->tableLen + 1);
+        auto fm_new = createFile(n->tableLen + m->tableLen);
         openFile(fm_new);
 
         int rlen = array_merge(fn->ram, n->tableLen, fm->ram, m->tableLen, fm_new->ram);

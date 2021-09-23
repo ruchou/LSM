@@ -21,7 +21,13 @@ public:
 
     void test1();
 
+    void printContent(Node<int> *n);
+
     void testMerge();
+
+    void testMerge2();
+
+    void testMerge3();
 
 };
 
