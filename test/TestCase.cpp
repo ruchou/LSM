@@ -116,7 +116,7 @@ void TestCase::testMerge3() {
 void TestCase::printContent(Node<int> *n) {
     if (n->nodeType == memtableNode) {
         cout << "Memtable Content" << endl;
-        for (int i = 0; i < n->tableLen; i++) {
+        for (int i = 0; i < n->table->size(); i++) {
             int key, timestamp;
             std::tie(key, timestamp) = n->table->at(i);
             cout << "K: " << key << "->" << " T: " << timestamp << endl;
@@ -124,14 +124,74 @@ void TestCase::printContent(Node<int> *n) {
 
     } else {
         cout << "SStable Content" << endl;
-        for (int i = 0; i < n->file->size; i++) {
+        for (int i = 0; i < n->tableLen; i++) {
             int key, timestamp;
-            std::tie(key, timestamp) = n->file->ram->at(i);
+            std::tie(key, timestamp) = n->file->disk_cont->at(i);
             cout << "K: " << key << "->" << " T: " << timestamp << endl;
         }
     }
     if (n->next != nullptr)
         printContent(n->next);
+
+}
+
+void TestCase::testMerge4() {
+    this->reset();
+
+    cout << "---------------------------" << endl;
+    for (int i = 0; i < 8; i++) {
+        cout << "insert " << "Key=" << i << endl;
+        upsert(this->root, i);
+    }
+
+    this->printContent(this->root);
+
+    int key = 5;
+    int res = search(this->root, key);
+    cout << "Search Key " << key << ": " << res << endl;
+
+    //upsert only with the value from readClock
+    upsert(this->root, 5);
+    res = search(this->root, key);
+    cout << "Search Key " << key << ": " << res << endl;
+    this->printContent(this->root);
+
+    cout << "---------------------------" << endl;
+    //compact fail since the size doesn't exceed
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+    cout << "---------------------------" << endl;
+    upsert(this->root, 10);
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+
+}
+
+void TestCase::testMerge5() {
+    this->reset();
+
+    for (int i = 0; i < 9; i++)
+        upsert(this->root, 5);
+    upsert(this->root, 8);
+    this->printContent(this->root);
+    cout << "------------------------" << endl;
+    compact(this->root, this->root);
+    cout << "After Compact" << endl;
+    this->printContent(this->root);
+
+    cout << "------------------------" << endl;
+    for (int i = 0; i < 10; i++)
+        upsert(this->root, i * i);
+    this->printContent(this->root);
+    cout << "------------------------" << endl;
+
+
+    compact(this->root, this->root);
+    cout << "After Compact" << endl;
+    this->printContent(this->root);
+    cout << "------------------------" << endl;
 
 }
 

@@ -71,7 +71,6 @@ void upsert(Node<int> *r, int k) {
 
 void compact(Node<int> *r, Node<int> *n) {
     lockNode(n);
-
     if (atCapacity(n)) {
         std::optional<Node<int> *> someM = chooseNext(n);
         if (someM.has_value()) {

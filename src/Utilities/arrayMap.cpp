@@ -55,7 +55,7 @@ int flush(std::vector<std::tuple<int, int>> *a,
 
 
 
-    return b->size();
+    return blen1;
 
     //    ensures a.map == old(a.map)
 //    ensures acc(a)
@@ -305,7 +305,7 @@ std::tuple<std::optional<int>, int> arr_find(std::vector<std::tuple<int, int>> *
 
     int idx = lo;
     if (idx == len || k < std::get<0>(a->at(lo))) {
-        return std::make_tuple(std::nullopt, len);
+        return std::make_tuple(std::nullopt, idx);
     } else {
         int key, value;
         std::tie(key, value) = a->at(idx);

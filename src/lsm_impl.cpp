@@ -196,9 +196,14 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
 
         //Weird
         int rlen = flush(n->table,
-                         0,
+                         n->table->size() - n->tableLen,
                          n->tableLen,
                          f_new->ram, m->tableLen);
+//
+//        f_new->ram->resize(rlen);
+//        f_new->disk_cont->resize(rlen);
+//        f_new->size = rlen;
+
         writeFile(f_new);
 
 //        contents_extensional(f_new.ram.map, f_new.disk_cont.map, 0, rlen);

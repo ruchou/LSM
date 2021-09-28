@@ -29,6 +29,10 @@ public:
 
     void testMerge3();
 
+    void testMerge4();
+
+    void testMerge5();
+
 };
 
 
