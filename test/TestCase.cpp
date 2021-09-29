@@ -3,7 +3,7 @@
 //
 
 #include "TestCase.h"
-
+#include <random>
 using std::cout;
 using std::end;
 using std::endl;
@@ -124,7 +124,7 @@ void TestCase::printContent(Node<int> *n) {
 
     } else {
         cout << "SStable Content" << endl;
-        for (int i = 0; i < n->tableLen; i++) {
+        for (int i = 0; i < n->file->disk_cont->size(); i++) {
             int key, timestamp;
             std::tie(key, timestamp) = n->file->disk_cont->at(i);
             cout << "K: " << key << "->" << " T: " << timestamp << endl;
@@ -192,6 +192,127 @@ void TestCase::testMerge5() {
     cout << "After Compact" << endl;
     this->printContent(this->root);
     cout << "------------------------" << endl;
+
+}
+
+int genNumber(int min, int max) {
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist(min, max); // distribution in range [1, 6]
+
+    return dist(rng);
+}
+
+void TestCase::testMerge6() {
+    this->reset();
+    cout << "Upsert Elements" << endl;
+    for (int i = 0; i < 10; i++) {
+        upsert(this->root, genNumber(0, 5));
+    }
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 0; i < 10; i++) {
+        upsert(this->root, genNumber(6, 10));
+    }
+    this->printContent(this->root);
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 0; i < 5; i++) {
+        upsert(this->root, genNumber(0, 10));
+    }
+    this->printContent(this->root);
+
+    int key = 5;
+    cout << "search key " << key << endl;
+    cout << "Value : " << search(this->root, key) << endl;
+
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 0; i < 5; i++) {
+        upsert(this->root, genNumber(0, 20));
+    }
+    this->printContent(this->root);
+    key = 5;
+    cout << "search key " << key << endl;
+    cout << "Value : " << search(this->root, key) << endl;
+
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+
+}
+
+void TestCase::testSStableMerge() {
+    this->reset();
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 0; i < 10; i++) {
+        upsert(this->root, i);
+    }
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 20; i < 30; i++) {
+        upsert(this->root, i);
+    }
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 30; i < 40; i++) {
+        upsert(this->root, i);
+    }
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 40; i < 50; i++) {
+        upsert(this->root, i);
+    }
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
+
+    cout << "Upsert Elements" << endl;
+    for (int i = 40; i < 50; i++) {
+        upsert(this->root, genNumber(40, 45));
+    }
+    this->printContent(this->root);
+
+    cout << "Compact" << endl;
+    compact(this->root, this->root);
+    this->printContent(this->root);
+
 
 }
 

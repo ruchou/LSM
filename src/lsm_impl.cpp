@@ -113,11 +113,10 @@ bool atCapacity(Node<int> *n) {
         }
     } else {
         return false;
-//        if(n->file->size > n->file->ram->size()/2 ){
-//            return true;
-//        }else{
-//            return false;
-//        }
+        if (n->tableLen < n->file->size)
+            return false;
+        else
+            return true;
     }
 }
 
@@ -188,6 +187,8 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
             openFile(f);
 
         FileT *f_new = createFile(n->table->size() + f->size);
+
+
         openFile(f_new);
 
         arr_copy(f->ram, f_new->ram, 0, 0, f->ram->size());
@@ -224,7 +225,11 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
         if (!isOpenFile(fm))
             openFile(fm);
 
-        auto fm_new = createFile(n->tableLen + m->tableLen);
+        FileT *fm_new;
+
+        fm_new = createFile(n->tableLen + m->tableLen + B);
+
+
         openFile(fm_new);
 
         int rlen = array_merge(fn->ram, n->tableLen, fm->ram, m->tableLen, fm_new->ram);

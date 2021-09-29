@@ -33,6 +33,11 @@ public:
 
     void testMerge5();
 
+    void testMerge6();
+
+    void testSStableMerge();
+
+
 };
 
 

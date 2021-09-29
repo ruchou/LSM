@@ -34,9 +34,9 @@ void deleteFile(FileT *f) {
 
 FileT *createFile(int len) {
     auto *f = new FileT();
-    f->ram = new std::vector<std::tuple<int, int>>(len);
+    f->ram = new std::vector<std::tuple<int, int>>(len, std::make_tuple(-1, -1));
 
-    f->disk_cont = new std::vector<std::tuple<int, int>>(len);
+    f->disk_cont = new std::vector<std::tuple<int, int>>(len, std::make_tuple(-1, -1));
 
     f->is_open = false;
     f->is_new = true;
