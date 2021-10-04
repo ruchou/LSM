@@ -113,10 +113,10 @@ bool atCapacity(Node<int> *n) {
         }
     } else {
         return false;
-        if (n->tableLen < n->file->size)
-            return false;
-        else
-            return true;
+//        if (n->tableLen < n->file->size)
+//            return false;
+//        else
+//            return true;
     }
 }
 
@@ -187,7 +187,7 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
             openFile(f);
 
         FileT *f_new = createFile(n->table->size() + f->size);
-
+//        FileT *f_new = createFile(n->table->size() + m->tableLen);
 
         openFile(f_new);
 

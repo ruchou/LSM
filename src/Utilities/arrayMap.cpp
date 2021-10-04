@@ -122,7 +122,7 @@ int array_merge(std::vector<std::tuple<int, int>> *a,
 //            not_in_sorted_seg(old(a.map), 0, ai, b[bi].key);
             if (bi < blen) {
 //                not_in_sorted_seg(old(b.map), 0, bi, b[bi].key);
-                if (std::get<0>(b->at(bi)) > std::get<0>(a->at(ai))) {
+                if (std::get<0>(b->at(bi)) < std::get<0>(a->at(ai))) {
                     p = b->at(bi);
                     c->at(ci) = p;
 
