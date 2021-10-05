@@ -112,11 +112,11 @@ bool atCapacity(Node<int> *n) {
             return true;
         }
     } else {
-        return false;
-//        if (n->tableLen < n->file->size)
-//            return false;
-//        else
-//            return true;
+//        return false;
+        if (n->tableLen < n->file->size)
+            return false;
+        else
+            return true;
     }
 }
 
@@ -186,24 +186,19 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
         if (!isOpenFile(f))
             openFile(f);
 
-        FileT *f_new = createFile(n->table->size() + f->size);
-//        FileT *f_new = createFile(n->table->size() + m->tableLen);
+//        FileT *f_new = createFile(n->table->size() + f->size);
+        FileT *f_new = createFile(n->table->size() + m->tableLen);
 
         openFile(f_new);
 
-        arr_copy(f->ram, f_new->ram, 0, 0, f->ram->size());
+        arr_copy(f->ram, f_new->ram, 0, 0, m->tableLen);
 
 //        contents_extensional(f.ram.map, f_new.ram.map, 0, m.tableLen);
 
-        //Weird
         int rlen = flush(n->table,
                          n->table->size() - n->tableLen,
                          n->tableLen,
                          f_new->ram, m->tableLen);
-//
-//        f_new->ram->resize(rlen);
-//        f_new->disk_cont->resize(rlen);
-//        f_new->size = rlen;
 
         writeFile(f_new);
 
@@ -227,12 +222,12 @@ void mergeContentsHelper(Node<T> *n, Node<T> *m) {
 
         FileT *fm_new;
 
-        fm_new = createFile(n->tableLen + m->tableLen + B);
-
+        fm_new = createFile(n->tableLen + m->tableLen + 1);
 
         openFile(fm_new);
 
         int rlen = array_merge(fn->ram, n->tableLen, fm->ram, m->tableLen, fm_new->ram);
+
         writeFile(fm_new);
 
         deleteFile(fm);

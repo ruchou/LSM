@@ -313,6 +313,17 @@ void TestCase::testSStableMerge() {
     compact(this->root, this->root);
     this->printContent(this->root);
 
+    for (int i = 0; i < 200; i++) {
+        cout << "Upsert Elements" << endl;
+        for (int j = 0; j < 10; j++) {
+            upsert(this->root, genNumber(0, 50));
+        }
+        cout << "Compact" << endl;
+        compact(this->root, this->root);
+    }
+
+    this->printContent(this->root);
+
 
 }
 
