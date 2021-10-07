@@ -12,7 +12,7 @@ int traverse(Node<int> *r, int k);
 
 int search(Node<int> *r, int k);
 
-void upsert(Node<int> *r, int k);
+void upsert(Node<int> *r, int k, int v);
 
 void compact(Node<int> *r, Node<int> *n);
 

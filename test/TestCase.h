@@ -19,21 +19,7 @@ public:
 
     void reset();
 
-    void test1();
-
     void printContent(Node<int> *n);
-
-    void testMerge();
-
-    void testMerge2();
-
-    void testMerge3();
-
-    void testMerge4();
-
-    void testMerge5();
-
-    void testMerge6();
 
     void testSStableMerge();
 

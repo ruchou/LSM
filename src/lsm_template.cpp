@@ -53,18 +53,18 @@ int search(Node<int> *r, int k) {
     return traverse(r, k);
 }
 
-void upsert(Node<int> *r, int k) {
+void upsert(Node<int> *r, int k, int v) {
     lockNode(r);
 
-    int t = readClock();
-    bool res = addContent(r, k, t);
+//    int t = readClock();
+    bool res = addContent(r, k, v);
 
     if (res) {
-        incrementClock();
+//        incrementClock();
         unlockNode(r);
     } else {
         unlockNode(r);
-        upsert(r, k);
+        upsert(r, k, v);
     }
 
 }
