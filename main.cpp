@@ -3,31 +3,32 @@
 #include <set>
 #include <optional>
 #include <iostream>
+#include <cassert>
 
-#include "lsm_template.h"
-#include "lsm_impl.h"
+#include "test/TestCase.h"
+using std::cout;
+using std::endl;
 
 int main() {
-    Node *r;
-    std::map<Node *, std::set<int>> esr;
-    std::map<int, int> Cr;
+    TestCase T1;
+    cout << "------------Case 0----------------------" << endl;
+    T1.test1();
+    cout << "------------Case 1----------------------" << endl;
+    T1.testMerge();
+    cout << "------------Case 2----------------------" << endl;
+    T1.testMerge2();
+    cout << "------------Case 3----------------------" << endl;
+    T1.testMerge3();
+    cout << "------------Case 4----------------------" << endl;
+    T1.testMerge4();
+    cout << "------------Case 5----------------------" << endl;
+    T1.testMerge5();
+    cout << "------------Case 6----------------------" << endl;
+    T1.testMerge6();
 
-    std::tie(r, esr, Cr) = init();
-
-    upsert(r, 10);
-
-    int t = search(r, 10);
-    std::cout << t << std::endl;
-
-    upsert(r, 10);
-    upsert(r, 10);
-    upsert(r, 10);
-    upsert(r, 10);
-    upsert(r, 10);
-
-
-    t = search(r, 10);
-    std::cout << t << std::endl;
+    cout << "------------Case SStable Merge----------------------" << endl;
+    T1.testSStableMerge();
 
 
+    return 1;
 }
