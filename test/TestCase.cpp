@@ -120,17 +120,35 @@ void TestCase::testSStableMerge() {
             upsert(this->root, genNumber(0, 50), i);
         }
         cout << "Compact" << endl;
-        compact(this->root, this->root);
-    }
-
-    this->printContent(this->root);
-
-    int k = 5;
-    int t = search(this->root, k);
-    cout << "Key is: " << k << ", t is: " << t << endl;
+compact(this->root, this->root);
 }
 
+this->printContent(this->root);
 
+int k = 5;
+int t = search(this->root, k);
+cout << "Key is: " << k << ", t is: " << t << endl;
+}
+
+void TestCase::test1() {
+this->reset();
+
+for (int i= 0; i<10;i++){
+upsert(this->root, 1, i);
+}
+this->printContent(this->root);
+
+int key = 1;
+int res = search(this->root, key);
+cout<<"Search key: "<<key<<" Ret : "<<res<<endl;
+
+cout<<"Compact"<<endl;
+compact(this->root, this->root);
+this->printContent(this->root);
+
+
+
+}
 
 
 

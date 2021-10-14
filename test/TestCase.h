@@ -23,6 +23,7 @@ public:
 
     void testSStableMerge();
 
+    void test1();
 
 };
 

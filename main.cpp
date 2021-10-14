@@ -14,6 +14,8 @@ int main() {
     cout << "------------Case SStable Merge----------------------" << endl;
     T.testSStableMerge();
 
+    cout << "------------Case T1----------------------" << endl;
+    T.test1();
 
     return 1;
 }
